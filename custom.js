@@ -18,11 +18,40 @@ For more information, check out the Serenade API documentation: https://serenade
 
 */
 
-serenade.global().command("make", api => {
-  api.focusOrLaunchApplication("terminal");
-  api.typeText("make clean && make");
-  api.pressKey("return");
+serenade.global().command("make", async api => {
+  await api.focusOrLaunchApplication("terminal");
+  await api.typeText("make clean && make");
+  await api.pressKey("return");
 });
+
+serenade.app("terminal").command("list", async api => {
+  await api.typeText("ls ");
+  await api.pressKey("return");
+})
+
+serenade.global().command("git add", async api => {
+  await api.focusOrLaunchApplication("terminal");
+  await api.typeText("git add ");
+  await api.pressKey("return");
+})
+
+serenade.global().command("git add u", async api => {
+  await api.focusOrLaunchApplication("terminal");
+  await api.typeText("git add -u");
+  await api.pressKey("return");
+})
+
+serenade.global().command("git push", async api => {
+  await api.focusOrLaunchApplication("terminal");
+  await api.typeText("git push ");
+})
+
+serenade.global().command("git commit <%text%>", async (api, matches) => {
+  await api.focusOrLaunchApplication("terminal");
+  await api.typeText("git commit -m \""); 
+  await api.typeText(matches.text);
+  await api.typeText("\"")
+})
 
 serenade.app("safari").command("find <%text%>", async (api, matches) => {
   await api.pressKey("f", ["command"]);
@@ -39,10 +68,19 @@ serenade.app("code").command("oh", async (api, matches) => {
 }, {autoExecute: true});
 
 serenade.app("code").command("e", async (api, matches) => {
-  await api.pressKey("right", ["option"]);
+  await api.pressKey("right");
 }, {autoExecute: true});
 
 serenade.app("code").command("i", async (api, matches) => {
+  await api.pressKey("left");
+}, {autoExecute: true});
+
+/* Option movements*/ 
+serenade.app("code").command("right", async (api, matches) => {
+  await api.pressKey("right", ["option"]);
+}, {autoExecute: true});
+
+serenade.app("code").command("left", async (api, matches) => {
   await api.pressKey("left", ["option"]);
 }, {autoExecute: true});
 
@@ -63,13 +101,3 @@ serenade.app("code").command("by", async (api, matches) => {
   await api.pressKey("left", ["command"]);
 }, {autoExecute: true});
 
-
-serenade.global().command("git add", api => {
-  api.focusOrLunchApplication("terminal");
-
-})
-
-serenade.global().command("commit", api => {
-  api.focusOrLunchApplication("terminal");
-
-})
