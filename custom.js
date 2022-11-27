@@ -134,3 +134,23 @@ serenade.app("code").command("search <%text%>", async (api, matches) => {
   await api.pressKey("p", ["command"]);
   await api.typeText(matches.text);
 }, {autoExecute: true});
+
+serenade.language("javascript").snippet(
+  "code command <%identifier%>",
+  "serenade.app(\"code\").command(\"<%identifier%>\", async (api, matches) => {<%newline%><%indent%><%newline%>});",
+  { "identifier": ["camelcase"] },
+);
+
+serenade.app("code").command("commander", async (api, matches) => {
+  await api.pressKey("k", ["command"]);
+  await api.pressKey("s", ["command"]);
+});
+
+serenade.app("code").command("jump", async (api, matches) => {
+  await api.pressKey("f12", []);
+});
+ 
+function get() {
+}
+
+get()
