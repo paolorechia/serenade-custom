@@ -29,6 +29,35 @@ serenade.app("terminal").command("list", async api => {
   await api.pressKey("return");
 })
 
+serenade.app("terminal").command("where", async api => {
+  await api.typeText("pwd");
+  await api.pressKey("return");
+})
+
+serenade.app("terminal").command("cd", async api => {
+  await api.typeText("cd ");
+})
+
+serenade.app("terminal").command("go up", async api => {
+  await api.typeText("cd ..");
+  await api.pressKey("return");
+})
+
+serenade.app("terminal").command("go back", async api => {
+  await api.typeText("cd -");
+  await api.pressKey("return");
+})
+
+serenade.app("terminal").command("tab", async api => {
+  await api.pressKey("tab");
+})
+
+serenade.global().command("git add", async api => {
+  await api.focusOrLaunchApplication("terminal");
+  await api.typeText("git add ");
+  await api.pressKey("return");
+})
+
 serenade.global().command("git add", async api => {
   await api.focusOrLaunchApplication("terminal");
   await api.typeText("git add ");
@@ -48,7 +77,7 @@ serenade.global().command("git push", async api => {
 
 serenade.global().command("git commit <%text%>", async (api, matches) => {
   await api.focusOrLaunchApplication("terminal");
-  await api.typeText("git commit -m \""); 
+  await api.typeText("git commit -m \" "); 
   await api.typeText(matches.text);
   await api.typeText("\"")
 })
@@ -86,11 +115,11 @@ serenade.app("code").command("left", async (api, matches) => {
 
 /* Bulk movements */
 serenade.app("code").command("up", async (api, matches) => {
-  await api.pressKey("up", [], 10);
+  await api.pressKey("up", [], 3);
 }, {autoExecute: true});
 
 serenade.app("code").command("down", async (api, matches) => {
-  await api.pressKey("down", [], 10);
+  await api.pressKey("down", [], 3);
 }, {autoExecute: true});
 
 serenade.app("code").command("the", async (api, matches) => {
