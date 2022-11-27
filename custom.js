@@ -130,3 +130,7 @@ serenade.app("code").command("by", async (api, matches) => {
   await api.pressKey("left", ["command"]);
 }, {autoExecute: true});
 
+serenade.app("code").command("search <%text%>", async (api, matches) => {
+  await api.pressKey("p", ["command"]);
+  await api.typeText(matches.text);
+}, {autoExecute: true});
